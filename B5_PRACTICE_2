@@ -2,3 +2,18 @@
 SELECT DISTINCT CITY FROM STATION;
 WHERE ID%2=0;
 --BT2:
+SELECT (COUNT (DISTINCT CITY))- (COUNT (ID))
+FROM STATION
+
+--BT4: CAST(X AS DECIMAL) = CONVERT X (INT) TO X(DECIMAL)
+SELECT 
+ROUND (CAST(sum(item_count*order_occurrences)/sum(order_occurrences) AS DECIMAL),1) as mean
+FROM items_per_order
+--BT5:khong dung được where skill='python' and  skill='postgresql'
+SELECT 
+CANDIDATE_ID
+FROM CANDIDATES
+where skill in('Python', 'Tableau', 'PostgreSQL')
+GROUP BY CANDIDATE_ID
+HAVING count (cANDIDATE_ID)=3
+BT6:
