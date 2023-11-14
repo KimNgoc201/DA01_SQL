@@ -4,16 +4,59 @@ WHERE ID%2=0;
 --BT2:
 SELECT (COUNT (DISTINCT CITY))- (COUNT (ID))
 FROM STATION
-
+--BT3:
+select 
+ceiling(avg(salary)-avg(replace(salary,'0','')))
+from employees
 --BT4: CAST(X AS DECIMAL) = CONVERT X (INT) TO X(DECIMAL)
 SELECT 
 ROUND (CAST(sum(item_count*order_occurrences)/sum(order_occurrences) AS DECIMAL),1) as mean
 FROM items_per_order
---BT5:khong dung được where skill='python' and  skill='postgresql'
+--BT5:
 SELECT 
 CANDIDATE_ID
 FROM CANDIDATES
 where skill in('Python', 'Tableau', 'PostgreSQL')
 GROUP BY CANDIDATE_ID
 HAVING count (cANDIDATE_ID)=3
-BT6:
+--BT6:
+SELECT user_id,
+date(MAX(post_date))-date(MIN(post_date)) AS DAY_BETWEEN
+FROM posts
+where post_date>='2021-01-01' and post_date<'2022-01-01'
+GROUP BY USER_ID
+having count(user_id)>=2
+--BT7:
+SELECT card_name,
+max(issued_amount)- min  (issued_amount) as differences
+FROM monthly_cards_issued
+GROUP BY card_name
+ORDER BY differences desc
+--BT8:
+SELECT MANUFACTURER,
+COUNT(DRUG) AS COUNT_DRUG,
+ABS(SUM(COGS-TOTAL_SALES)) AS TOTAL_LOSS
+FROM PHARMACY_SALES
+WHERE COGS>TOTAL_SALES
+GROUP BY MANUFACTURER
+ORDER BY TOTAL_LOSS DESC
+--BT9:
+SELECT id, movie, description, rating FROM CINEMA
+WHERE ID%2!=0 AND description!='boring'
+order by rating desc
+--BT0:
+SELECT teacher_id,
+count(distinct (subject_id)) as cnt
+from teacher
+group by teacher_id
+--BT11:
+# Write your MySQL query statement below
+SELECT user_id,
+count(follower_id) as followers_count
+from followers
+group by user_id
+order by user_id 
+--BT12
+SELECT class FROM COURSES
+GROUP BY CLASS
+having count(student)>=5
